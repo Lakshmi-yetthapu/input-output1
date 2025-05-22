@@ -1,0 +1,10 @@
+.filter-container {
+  display: flex;
+  gap: 16px;
+  margin: 20px;
+}
+
+.filter-container label {
+  font-weight: 500;
+  cursor: pointer;
+}

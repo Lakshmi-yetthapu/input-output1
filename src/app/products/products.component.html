@@ -1,0 +1,28 @@
+<app-filter-productsapp-filter-products [all] = "totalProducts" [inStock]="totalProductsInStock" [outOfStock]="totalProductsOutOfStock"></app-filter-productsapp-filter-products>
+<div class="product-list-container">
+  <div *ngFor="let item of products" class="product-card">
+    <img [src]="item.images[0]" alt="{{ item.title }}" class="product-image" />
+    
+    <div class="product-details">
+      <h1 class="product-title">{{ item.title }}</h1>
+      <p class="product-price">Price: ${{ item.price }}</p>
+      <p class="product-description">{{ item.description }}</p>
+      <p class="product-category">
+        Category: {{ item.category }}
+        <span class="product-brand">{{ item.brand }}</span>
+      </p>
+      <p 
+        class="product-availability" 
+        [ngClass]="{
+          'in-stock': item.availabilityStatus === 'In Stock',
+          'out-of-stock': item.availabilityStatus !== 'In Stock'
+        }"
+      >
+        {{ item.availabilityStatus === 'In Stock' ? 'Available' : 'Out of Stock' }}
+      </p>
+      <p class="product-stock">Items Left: {{ item.stock }}</p>
+    </div>
+  </div>
+</div>
+
+
