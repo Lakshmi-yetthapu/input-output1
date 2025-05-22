@@ -1,8 +1,14 @@
-<app-filter-productsapp-filter-products [all] = "totalProducts" [inStock]="totalProductsInStock" [outOfStock]="totalProductsOutOfStock"></app-filter-productsapp-filter-products>
+<app-filter-productsapp-filter-products
+  [all]="totalProducts"
+  [inStock]="totalProductsInStock"
+  [outOfStock]="totalProductsOutOfStock"
+  (selectFilterEvent)="onFilterChange($event)">
+</app-filter-productsapp-filter-products>
+
 <div class="product-list-container">
-  <div *ngFor="let item of products" class="product-card">
+  <div *ngFor="let item of filteredProducts" class="product-card">
     <img [src]="item.images[0]" alt="{{ item.title }}" class="product-image" />
-    
+
     <div class="product-details">
       <h1 class="product-title">{{ item.title }}</h1>
       <p class="product-price">Price: ${{ item.price }}</p>
@@ -11,14 +17,14 @@
         Category: {{ item.category }}
         <span class="product-brand">{{ item.brand }}</span>
       </p>
-      <p 
-        class="product-availability" 
+      <p
+        class="product-availability"
         [ngClass]="{
-          'in-stock': item.availabilityStatus === 'In Stock',
-          'out-of-stock': item.availabilityStatus !== 'In Stock'
+          'in-stock': isProductAvailable(item.availabilityStatus),
+          'out-of-stock': !isProductAvailable(item.availabilityStatus)
         }"
       >
-        {{ item.availabilityStatus === 'In Stock' ? 'Available' : 'Out of Stock' }}
+        {{ isProductAvailable(item.availabilityStatus) ? 'Available' : 'Out of Stock' }}
       </p>
       <p class="product-stock">Items Left: {{ item.stock }}</p>
     </div>
